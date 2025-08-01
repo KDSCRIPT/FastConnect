@@ -1,0 +1,37 @@
+services:
+  api:
+    # build: .
+    image: docky07/fastapi:latest
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000 #<port on localhost(any port that is open)>:<port on container>
+    volumes:
+      - ./:/usr/src/app:ro #ro means container can't change content
+    # command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
+    # env_file:
+    #   - ./.env
+    environment:
+      - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=Acdnfmabjjbads1
+      - DATABASE_NAME=fastapi
+      - DATABASE_USERNAME=postgres
+      - SECRET_KEY=746a19172a1e772d983b9e4a2129fbd692a723adee1e024fd181576c653d0780
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=Acdnfmabjjbads1
+      - POSTGRES_DB=fastapi
+
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
