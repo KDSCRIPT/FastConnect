@@ -41,7 +41,7 @@ All educational credit goes to the original creator.
 
 ## 📦 Installation & Running the Project
 
-### ✅ Option 1: Run with Docker (Recommended)
+### ✅ Run with Docker 
 
 > Make sure you have Docker and Docker Compose installed.
 
